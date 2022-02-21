@@ -1,0 +1,67 @@
+DIRECTORY SETUP
+
+├── base_image 
+│   └── Dockerfile
+├── simulation 
+│   ├── Dockerfile
+│   └── simulation_entrypoint.sh
+├── controller 
+│   ├── Dockerfile
+│   └── controller_entrypoint.sh
+
+
+https://docs.docker.com/engine/install/
+//documentazione su come installare docker
+              
+se docker da degli errori del tipo "permission denied docker daemon qualcosa qualcosa" allora runnare tutti i comandi docker con sudo, oppure seguire i seguenti step
+
+sudo groupadd docker
+usermod -aG docker $USER
+sudo systemctl restart docker
+
+https://docs.docker.com/engine/install/linux-postinstall/
+//documentazione su come evitare di scrivere sempre sudo prima di ogni docker command
+
+
+una volta create le cartelle e messi i file giusti dentro di esse buildiamo le immagini necessarie (questo passaggio dovrebbe richiedere diverso tempo, sopratutto per la base_image)
+
+cd base_image
+docker build -t base_image .
+
+cd simulation
+docker build -t simulation .
+
+cd controller
+docker build -t controller .
+
+docker volume create logs //posto dove vengono salvati sul computer i log
+// per trovare la dir che contiene i log salvati dopo la simulazione 
+docker volume inspect logs
+
+//dovrebbe printare una cosa del genere
+[
+    {
+        "CreatedAt": "2022-02-21T17:47:50+01:00",
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/logs/_data", <<<------- questa e la directory
+        "Name": "logs",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+
+a questo punto runnare il seguente comando da terminale:
+
+docker run -it -v logs:/home/robomaker/.ros/log --name simulation \
+-u robomaker -e ROBOMAKER_GAZEBO_MASTER_URI=http://localhost:5555 \
+-e ROBOMAKER_ROS_MASTER_URI=http://localhost:11311 \
+simulation
+
+eseguire questo comando su un altro terminale:
+
+docker run -it -v logs:/home/robomaker/.ros/log --name controller \
+-u robomaker -e ROBOMAKER_GAZEBO_MASTER_URI=http://localhost:5555 \
+-e ROBOMAKER_ROS_MASTER_URI=http://localhost:11311 \
+controller
+
