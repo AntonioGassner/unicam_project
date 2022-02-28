@@ -1,4 +1,4 @@
-FROM base_image
+FROM base_image_v7
 
 RUN cd /home/robomaker/project_ccc && \
  /bin/bash -c "source /opt/ros/foxy/setup.bash && rosdep install --rosdistro foxy --from-paths src --ignore-src -r -y && colcon build"
