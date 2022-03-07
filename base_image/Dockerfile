@@ -62,9 +62,10 @@ USER $USERNAME
 RUN sh -c 'cd /home/$USERNAME'
 
 # Download and build our Robot and Simulation application
+RUN sh -c 'mkdir -p /home/robomaker/my_logs'
 RUN sh -c 'mkdir -p /home/robomaker/project_ccc'
 RUN sh -c 'cd /home/robomaker/project_ccc && git clone https://github.com/AntonioGassner/src.git'
-RUN sh -c 'mkdir -p /home/robomaker/my_logs'
+
 
 RUN sudo rosdep fix-permissions
 RUN rosdep update
