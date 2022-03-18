@@ -16,6 +16,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     ros-foxy-tf2-tools \
     ros-foxy-tf-transformations \
     xterm \
+    ros-foxy-ros2bag \
+    ros-foxy-rosbag2-converter-default-plugins \
+    ros-foxy-rosbag2-storage-default-plugins \
     && rm -rf /var/lib/apt/lists/*
     
 RUN pip install transformations    
@@ -64,9 +67,6 @@ RUN sh -c 'cd /home/$USERNAME'
 # Download and build our Robot and Simulation application
 RUN sh -c 'mkdir -p /home/robomaker/project_ccc'
 RUN sh -c 'cd /home/robomaker/project_ccc && git clone https://github.com/AntonioGassner/src.git'
-
-# Create the dir where logs will be stored
-RUN sh -c 'mkdir -p /home/robomaker/my_logs'
 
 RUN sudo rosdep fix-permissions
 RUN rosdep update
