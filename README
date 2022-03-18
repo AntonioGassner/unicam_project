@@ -37,6 +37,10 @@ una volta create le cartelle e messi i file giusti dentro di esse buildiamo le i
 dopodiche' runnare il test.sh file. per runnarlo trascinare il file dentro alla console e premere invio.
 se non funziona allora modificare le impostazioni del file in modo da renderlo eseguibile.
 
+NOTA: il numero di simulazioni lanciate dipende dalla variabile <n> nel file test.sh, sta anche scritto nei commenti del file
+ALTRA NOTA: il file test.sh, durante l'esecuzione, fa un volume prune per evitare di lavorare con gli stessi volume della simulazione precedente. 
+se avete dei volume non legati a un contenitore verranno rimossi. siete stati avvisati!
+
 questa e la directory alla quale vengono salvati i volume, quindi trovate qua i log
 /var/lib/docker/volumes/simulation_log_?/data
 
