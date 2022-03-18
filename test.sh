@@ -10,8 +10,8 @@ docker volume prune -f
 
 while [ "$i" -le "$n" ]
 do 
-	(trap 'kill 0' SIGINT; docker run -d --rm -v simulation_log_"$i":/home/robomaker/my_logs --name sim_"$i" -u robomaker -e ROBOMAKER_GAZEBO_MASTER_URI=http://localhost:"$port1" -e ROBOMAKER_ROS_MASTER_URI=http://localhost:"$port2" simulation_v9.3 ) &
-	(trap 'kill 0' SIGINT; docker run -d --rm --name cont_"$i" -u robomaker -e ROBOMAKER_GAZEBO_MASTER_URI=http://localhost:"$port1" -e ROBOMAKER_ROS_MASTER_URI=http://localhost:"$port2" controller_v9.3 )
+	(trap 'kill 0' SIGINT; docker run -d --rm -v simulation_log_"$i":/home/robomaker/my_logs --name sim_"$i" -u robomaker -e ROBOMAKER_GAZEBO_MASTER_URI=http://localhost:"$port1" -e ROBOMAKER_ROS_MASTER_URI=http://localhost:"$port2" simulation ) &
+	(trap 'kill 0' SIGINT; docker run -d --rm --name cont_"$i" -u robomaker -e ROBOMAKER_GAZEBO_MASTER_URI=http://localhost:"$port1" -e ROBOMAKER_ROS_MASTER_URI=http://localhost:"$port2" controller )
 	port1=$(("port1"+1))
 	port2=$(("port2"+1))
 	i=$(("i"+1))
