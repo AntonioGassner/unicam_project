@@ -1,8 +1,9 @@
-FROM base_image
+FROM base_image_v9.4
 
 RUN cd /home/robomaker/project_ccc && \
  /bin/bash -c "source /opt/ros/foxy/setup.bash && rosdep install --rosdistro foxy --from-paths src --ignore-src -r -y && colcon build"
 
+RUN sh -c 'mkdir -p /home/robomaker/my_logs'
 RUN echo 'source ~/project_ccc/install/setup.bash' >> ~/.bashrc 
 
 COPY simulation_entrypoint.sh /home/robomaker/simulation_entrypoint.sh
