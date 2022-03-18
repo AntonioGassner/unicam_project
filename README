@@ -34,39 +34,9 @@ una volta create le cartelle e messi i file giusti dentro di esse buildiamo le i
  | cd controller
  | docker build -t controller .
 
- | docker volume create logs //posto dove vengono salvati sul computer i log
-// per trovare la dir che contiene i log salvati dopo la simulazione 
- | docker volume inspect logs
+dopodiche' runnare il test.sh file. per runnarlo trascinare il file dentro alla console e premere invio.
+se non funziona allora modificare le impostazioni del file in modo da renderlo eseguibile.
 
-//dovrebbe printare una cosa del genere
-[
-    {
-        "CreatedAt": "2022-02-21T17:47:50+01:00",
-        "Driver": "local",
-        "Labels": {},
-        "Mountpoint": "/var/lib/docker/volumes/logs/_data", <<<------- questa e la directory
-        "Name": "logs",
-        "Options": {},
-        "Scope": "local"
-    }
-]
-
-a questo punto runnare il seguente comando da terminale:
-IMPORTANTE: inserire il proprio user al posto giusto nel comando.
-Inoltre 
- | cd
- | mkdir my_logs 
-o come volete chiamare la cartella dove salvare i log. Cambiate opportunamente la directory source del comando.
-
- | docker run -it --name project_simulation_v3 --mount type=bind,source=/home/USER/my_logs,target=/home/robomaker/my_logs \ \
--u robomaker -e ROBOMAKER_GAZEBO_MASTER_URI=http://localhost:5555 \
--e ROBOMAKER_ROS_MASTER_URI=http://localhost:11311 \
-simulation
-
-eseguire questo comando su un altro terminale:
-
- | docker run -it --name project_controller_v3 \
--u robomaker -e ROBOMAKER_GAZEBO_MASTER_URI=http://localhost:5555 \
--e ROBOMAKER_ROS_MASTER_URI=http://localhost:11311 \
-controller
+questa e la directory alla quale vengono salvati i volume, quindi trovate qua i log
+/var/lib/docker/volumes/simulation_log_?/data
 
