@@ -64,7 +64,11 @@ USER $USERNAME
 
 RUN sh -c 'cd /home/$USERNAME'
 
+#Just a gimmik to change code and not have it ignored when building image
+RUN echo 'v9.9'
+
 # Download and build our Robot and Simulation application
+RUN sh -c 'mkdir -p /home/robomaker/my_logs'
 RUN sh -c 'mkdir -p /home/robomaker/project_ccc'
 RUN sh -c 'cd /home/robomaker/project_ccc && git clone https://github.com/AntonioGassner/src.git'
 
