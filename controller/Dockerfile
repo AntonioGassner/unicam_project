@@ -8,6 +8,7 @@ RUN echo 'source ~/project_ccc/install/setup.bash' >> ~/.bashrc
 COPY controller_entrypoint.sh /home/robomaker/controller_entrypoint.sh
 RUN sh -c 'sudo chmod +x /home/robomaker/controller_entrypoint.sh'
 RUN sh -c 'sudo chown robomaker:robomaker /home/robomaker/controller_entrypoint.sh'
+RUN sudo chmod -R 777 /home/robomaker
 
 CMD ros2 launch ccc_pkg controllers.launch.py
 ENTRYPOINT [ "/home/robomaker/controller_entrypoint.sh" ]
